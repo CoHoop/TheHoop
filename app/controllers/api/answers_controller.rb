@@ -26,11 +26,14 @@ class Api::AnswersController < ApplicationController
     }
 
     answer_id = params['answer_id']
-    
-    answer = Answer.find(answer_id)
-    answer.user.add_points 10
-    
-    answer.add_vote
+    answer = Answer.find_by_id(answer_id)
+
+    if(answer)
+      answer.user.add_points 10
+      answer.add_vote
+    else
+      response[:created] = 0
+    end
 
     render json: response
   end
