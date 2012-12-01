@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  firstname: MyString
+  lastname: MyString
+  email: MyString
+  university: MyString
+  points: 1
+  device_token: MyString
+  fb_uuid: MyString
+  fb_token: MyString
+
+two:
+  firstname: MyString
+  lastname: MyString
+  email: MyString
+  university: MyString
+  points: 1
+  device_token: MyString
+  fb_uuid: MyString
+  fb_token: MyString
