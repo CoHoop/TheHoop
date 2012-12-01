@@ -27,19 +27,19 @@ class Api::UsersController < ApplicationController
       updated: 1
     }
 
-    uuid = params['fb_uid']
+    uuid       = params['fb_uid']
     university = params['university']
-    name = params['name']
-    email = params['email']
-    tags = params['tags']
+    name       = params['name']
+    email      = params['email']
+    tags       = params['tags']
 
-    user = User.find_by_fb_uuid(uuid)
+    user = User.find_by_fb_uuid(uuid) or (user_not_found(uuid) and return)
 
     unless user.update_attributes name: name, university: university, email: email
       response[:updated] = 0
     end
 
-    user.tag! tags
+    user.tag! tags, save: true
 
     render json: response
   end
@@ -48,4 +48,8 @@ class Api::UsersController < ApplicationController
 
   end
 
+  private
+  def user_not_found uuid
+    render :status => 401, :json => { :success => false, :errors => ["User does not exists for uid #{uuid}."]}
+  end
 end
