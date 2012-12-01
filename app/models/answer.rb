@@ -19,4 +19,9 @@ class Answer < ActiveRecord::Base
   validates :content,      presence: true
   validates :microhoop_id, presence: true
   validates :user_id,      presence: true
+
+  def add_vote
+  	self.votes += 1
+  	self.save!
+  end
 end

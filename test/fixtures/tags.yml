@@ -1,10 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
+  id: 1
   name: Economie
 
 two:
+  id: 2
   name: Finance
 
 three:
+  id: 3
   name: Managment

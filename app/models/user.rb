@@ -60,4 +60,9 @@ class User < ActiveRecord::Base
     self.save!
     false
   end
+
+  def add_points points
+    points += points
+    save!
+  end
 end

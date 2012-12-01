@@ -7,3 +7,7 @@ one:
 two:
   microhoop_id: 1
   tag_id: 2
+
+three:
+  microhoop_id: 2
+  tag_id: 2

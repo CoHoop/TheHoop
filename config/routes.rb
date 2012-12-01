@@ -1,7 +1,10 @@
 TheHoop::Application.routes.draw do
   namespace 'api' do
     match '/users/login' => 'users#login'
-    match '/users/register' => 'users#register'
+    match '/users/update' => 'users#update'
+    match '/users/feed/:fb_uid' => 'users#feed'
+    match '/answers/create' => 'answers#create'
+    match '/answers/voteup/:answer_id' => 'answers#voteup'
   end
 
   # The priority is based upon order of creation:
