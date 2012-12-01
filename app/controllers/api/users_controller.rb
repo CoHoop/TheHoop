@@ -22,7 +22,7 @@ class Api::UsersController < ApplicationController
     render json: response
   end
 
-  def register 
+  def register
     response = {
       updated: 1
     }
@@ -43,10 +43,7 @@ class Api::UsersController < ApplicationController
     render json: response
   end
 
-  def
-
   private
-
   def update_user_with_fb user, fb_user
     user.update_attributes(
       name: fb_user['name'],
