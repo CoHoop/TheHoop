@@ -1,4 +1,8 @@
 TheHoop::Application.routes.draw do
+  namespace 'api' do
+    match '/users/login' => 'users#login'
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

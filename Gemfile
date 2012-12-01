@@ -8,11 +8,7 @@ gem 'awesome_print', :require => 'ap'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
-
-gem 'devise'
-gem 'omniauth'
-gem 'omniauth-facebook'
+gem 'koala'
 
 group :production do
   gem 'pg'
