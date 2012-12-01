@@ -14,15 +14,15 @@ class Api::UsersController < ApplicationController
 
     if user.name.blank?
       response[:complete] = 0
-      update_user_with_fb(user, fb_user)
+      user.update_attributes(email: fb_user['email'])
     else
-      update_user_with_fb(user, fb_user)
+      user.update_attributes(email: fb_user['email'])
     end
 
     render json: response
   end
 
-  def register
+  def update
     response = {
       updated: 1
     }
@@ -30,11 +30,12 @@ class Api::UsersController < ApplicationController
     uuid = params['fb_uid']
     university = params['university']
     name = params['name']
+    email = params['email']
     tags = params['tags']
 
     user = User.find_by_fb_uuid(uuid)
 
-    unless user.update_attributes name: name, university: university
+    unless user.update_attributes name: name, university: university, email: email
       response[:updated] = 0
     end
 
@@ -43,14 +44,8 @@ class Api::UsersController < ApplicationController
     render json: response
   end
 
-  private
-  def update_user_with_fb user, fb_user
-    user.update_attributes(
-      name: fb_user['name'],
-      fb_uuid: fb_user['id'],
-      email: fb_user['email'],
-      university: fb_user['education'].last['school']['name']
-    )
+  def feed
+
   end
 
 end
