@@ -11,15 +11,49 @@ class Api::UsersController < ApplicationController
     user = User.find_or_create_by_fb_uuid(uuid)
     fb = Koala::Facebook::API.new(token)
     fb_user = fb.get_object('me')
-    ap fb_user
 
     if user.name.blank?
       response[:complete] = 0
-      # user.update_attributes()
+      update_user_with_fb(user, fb_user)
     else
-      # user.update
-   end
+      update_user_with_fb(user, fb_user)
+    end
 
     render json: response
   end
+
+  def register 
+    response = {
+      updated: 1
+    }
+
+    uuid = params['fb_uid']
+    university = params['university']
+    name = params['name']
+    tags = params['tags']
+
+    user = User.find_by_fb_uuid(uuid)
+
+    unless user.update_attributes name: name, university: university
+      response[:updated] = 0
+    end
+
+    user.tag! tags
+
+    render json: response
+  end
+
+  def
+
+  private
+
+  def update_user_with_fb user, fb_user
+    user.update_attributes(
+      name: fb_user['name'],
+      fb_uuid: fb_user['id'],
+      email: fb_user['email'],
+      university: fb_user['education'].last['school']['name']
+    )
+  end
+
 end

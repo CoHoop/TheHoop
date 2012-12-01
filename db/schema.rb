@@ -59,12 +59,12 @@ ActiveRecord::Schema.define(:version => 20121201151504) do
   create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "university"
-    t.integer  "points"
+    t.integer  "points",       :default => 0, :null => false
     t.string   "device_token"
     t.string   "fb_uuid"
     t.string   "fb_token"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.string   "name"
   end
 

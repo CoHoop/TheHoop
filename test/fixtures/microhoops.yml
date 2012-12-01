@@ -1,9 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  user_id: 
-  content: MyText
-
-two:
-  user_id: 
-  content: MyText
+  user_id: 1
+  content: "I can't finish my paper for the economic class, please help me"
+  location: Carpe Diem Coffee

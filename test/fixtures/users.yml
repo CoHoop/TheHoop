@@ -1,21 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  firstname: MyString
-  lastname: MyString
-  email: MyString
-  university: MyString
+  id: 1
+  name: Nicolas Lescop
+  email: limplementeur@gmail.com
+  university: CoHoop
   points: 1
-  device_token: MyString
-  fb_uuid: MyString
-  fb_token: MyString
+  device_token: 
+  fb_uuid: 1249310233700
+  fb_token: AAAHD3kVZAcPkBAC0CQjZAewj7xlhH1FjVAgaJlbqLozpsbLGctP9Nh6NnbfXJkt86ehx9rVgNzdLZBimYP1Jcb8sfhPbEeUNT8J6bZCft2L5VFUCdqQH
 
 two:
-  firstname: MyString
-  lastname: MyString
-  email: MyString
-  university: MyString
+  id: 2
+  name: Gabriel Dehan
+  email: gabriel.dehan@gmail.com
+  university: CoHoop
   points: 1
-  device_token: MyString
-  fb_uuid: MyString
-  fb_token: MyString
+  device_token: 
+  fb_uuid: 1249310233700
+  fb_token: AAAHD3kVZAcPkBAC0CQjZAewj7xlhH1FjVAgaJlbqLozpsbLGctP9Nh6NnbfXJkt86ehx9rVgNzdLZBimYP1Jcb8sfhPbEeUNT8J6bZCft2L5VFUCdqQH

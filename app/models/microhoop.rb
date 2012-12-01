@@ -18,7 +18,7 @@ class Microhoop < ActiveRecord::Base
   has_many :tags_relationships, class_name: 'MicrohoopsTagsRelationship', foreign_key: "microhoop_id"
   has_many :tags, through: :tags_relationships
   has_many :answers
-
+  
   validates :content,  presence: true
   validates :location, presence: true
   validates :user_id,  presence: true
