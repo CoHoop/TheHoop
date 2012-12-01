@@ -1,7 +1,8 @@
 TheHoop::Application.routes.draw do
   namespace 'api' do
     match '/users/login' => 'users#login'
-    match '/users/register' => 'users#register'
+    match '/users/update' => 'users#update'
+    match '/microhoop/create' => ''
   end
 
   # The priority is based upon order of creation:
