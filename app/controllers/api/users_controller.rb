@@ -45,7 +45,30 @@ class Api::UsersController < ApplicationController
   end
 
   def feed
+    uuid = params['fb_uid']
 
+    user = User.find_by_fb_uuid(uuid)
+
+    microhoops = Microhoop.related_to user: user
+    
+    response = []
+    
+    ap microhoops
+
+    microhoops.each do |microhoop|
+      response << {
+        microhoop_id:   microhoop.id,
+        user_name:      microhoop.user.name,
+        location:       microhoop.location,
+        votes:          microhoop.votes,
+        is_meeting:     microhoop.is_meeting,
+        date:           microhoop.created_at,
+        answers_count:  microhoop.answers.length,
+        content:        microhoop.content
+      }
+    end
+
+    render json: response
   end
 
   private
