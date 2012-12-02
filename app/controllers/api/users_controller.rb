@@ -28,7 +28,7 @@ class Api::UsersController < ApplicationController
     user = User.find_by_fb_uuid(uuid) or (user_not_found(uuid) and return)
 
     response = {
-      name:       user.name,
+      user_name:  user.name,
       uid:        user.fb_uuid,
       email:      user.email,
       reputation: user.points,
