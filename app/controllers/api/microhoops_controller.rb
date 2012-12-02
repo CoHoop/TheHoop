@@ -23,8 +23,6 @@ class Api::MicrohoopsController < ApplicationController
     microhoop_id = params['microhoop_id']
     microhoop = Microhoop.find_by_id(microhoop_id)
 
-    ap microhoop
-
     if microhoop
       microhoop.user.add_points 10
       microhoop.vote_up
