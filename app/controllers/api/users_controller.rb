@@ -91,16 +91,6 @@ class Api::UsersController < ApplicationController
     render json: response
   end
 
-  def add_tags
-    uuid = params['fb_uid']
-
-    user = User.find_by_fb_uuid(uuid) or (user_not_found(uuid) and return)
-
-
-
-
-  end
-
   private
   def user_not_found uuid
     render :status => 401, :json => { :success => false, :errors => ["User does not exists for uid #{uuid}."]}
