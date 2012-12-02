@@ -79,12 +79,14 @@ class Api::UsersController < ApplicationController
       response << {
         microhoop_id:   microhoop.id,
         user_name:      microhoop.user.name,
+        university:     microhoop.user.university,
         location:       microhoop.location,
         votes:          microhoop.votes,
         is_meeting:     microhoop.is_meeting,
         date:           microhoop.created_at,
         answers_count:  microhoop.answers.length,
-        content:        microhoop.content
+        content:        microhoop.content,
+        tags:           filter_attributes(microhoop.tags, 'created_at', 'updated_at')
       }
     end
 
