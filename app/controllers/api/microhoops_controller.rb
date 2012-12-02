@@ -14,4 +14,24 @@ class Api::MicrohoopsController < ApplicationController
 
     render json: response
   end
+
+  def voteup
+    response = {
+      success: 1
+    }
+
+    microhoop_id = params['microhoop_id']
+    microhoop = Microhoop.find_by_id(microhoop_id)
+
+    ap microhoop
+
+    if microhoop
+      microhoop.user.add_points 10
+      microhoop.vote_up
+    else
+      response[:success] = 0
+    end
+
+    render json: response
+  end
 end

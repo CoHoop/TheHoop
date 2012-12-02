@@ -22,17 +22,17 @@ class Api::AnswersController < ApplicationController
 
   def voteup
     response = {
-      created: 1
+      success: 1
     }
 
     answer_id = params['answer_id']
     answer = Answer.find_by_id(answer_id)
 
-    if(answer)
+    if answer
       answer.user.add_points 10
-      answer.add_vote
+      answer.vote_up
     else
-      response[:created] = 0
+      response[:success] = 0
     end
 
     render json: response

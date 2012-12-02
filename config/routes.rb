@@ -4,6 +4,7 @@ TheHoop::Application.routes.draw do
     match '/users/update' => 'users#update'
     match '/users/feed/:fb_uid' => 'users#feed'
     match '/microhoop/create' => 'microhoops#create'
+    match '/microhoop/voteup/:microhoop_id' => 'microhoops#voteup'
     match '/answers/create' => 'answers#create'
     match '/answers/voteup/:answer_id' => 'answers#voteup'
   end
