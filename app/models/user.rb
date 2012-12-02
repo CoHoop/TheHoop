@@ -14,6 +14,8 @@
 #  updated_at   :datetime        not null
 #
 class User < ActiveRecord::Base
+  include Taggable
+
   attr_accessible :email, :name, :points, :university
   attr_accessible :fb_token, :fb_uuid, :device_token
 
@@ -32,37 +34,9 @@ class User < ActiveRecord::Base
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
 
-  # TODO: Should strip special characters like "."
-  # Public: Add multiple tags to a user: tags a user.
-  #
-  # names - String of tags, separated by commas (example: "Foo, Bar, World")
-  # opts  - Options to pass, (default: { main: false })
-  #         main - If the tag is a main tag or a secondary tag, as a Boolean.
-  #
-  # Returns the name of the tag as a String if the tags alread exists, false otherwise.
-  def tag!(names)
-    # Creates an index of all users tags relationships ids.
-    # Example: [<Tag#1 name: 'Hola'>, <Tag#8 name: 'Segoritas'>] => [1, 8]
-    user_tags = tags_relationships.map { |r| r.tag_id }
-
-    # Clean each tag name : 'Tag1  , Tag3 , Tag1' => ["Tag1", "Tag3"]
-    # TODO: Maybe refactor map(&:strip).to_set
-    names.split(',').map(&:strip).to_set.each do |name|
-      tag = Tag.where('LOWER(name) = ?', name.downcase).first_or_initialize(name: name)
-      if user_tags.include? tag.id
-        # TODO: Should perhaps display all erors
-        return name
-      else
-        tag.save!
-        tags_relationships.build(tag_id: tag.id)
-      end
-    end
-    self.save!
-    false
-  end
-
   def add_points points
     self.points += points
     self.save!
   end
 end
+
