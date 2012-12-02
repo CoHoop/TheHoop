@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-  respond_to :json
+  include ActiveSupport
 
   def login
     response = {
@@ -18,6 +18,26 @@ class Api::UsersController < ApplicationController
     else
       user.update_attributes(email: fb_user['email'])
     end
+
+    render json: response
+  end
+
+  def profile
+    uuid = params['fb_uid']
+
+    user = User.find_by_fb_uuid(uuid) or (user_not_found(uuid) and return)
+
+    response = {
+      name:       user.name,
+      uid:        user.fb_uuid,
+      email:      user.email,
+      reputation: user.points,
+      university: user.university,
+      picture:    "https://graph.facebook.com/#{user.fb_uuid}/picture?type=large",
+      tags:       filter_attributes(user.tags, 'created_at', 'updated_at'),
+      questions:  filter_attributes(user.microhoops, 'updated_at', 'user_id'),
+      answers:    filter_attributes(user.answers, 'updated_at', 'user_id')
+    }
 
     render json: response
   end
@@ -47,7 +67,7 @@ class Api::UsersController < ApplicationController
   def feed
     uuid = params['fb_uid']
 
-    user = User.find_by_fb_uuid(uuid)
+    user = User.find_by_fb_uuid(uuid) or (user_not_found(uuid) and return)
 
     microhoops = Microhoop.related_to user: user
     
@@ -74,5 +94,21 @@ class Api::UsersController < ApplicationController
   private
   def user_not_found uuid
     render :status => 401, :json => { :success => false, :errors => ["User does not exists for uid #{uuid}."]}
+  end
+
+  # Internal: Filters an Array of ActiveRecord objects, removing unwanted attributes
+  #
+  # array    - An Array of ActiveRecord objects, or relations.
+  # except - Multiple arguments as String representing the unwanted attributes
+  #
+  # Example:
+  #
+  #   filter_attributes(tags, 'created_at', 'updated_at')
+  #
+  # Return an Array of filtered Hashes.
+  def filter_attributes array, *except
+    array.map do |item|
+      item.attributes.except(*except)
+    end
   end
 end

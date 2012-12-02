@@ -23,16 +23,14 @@ class Api::MicrohoopsController < ApplicationController
   	microhoop = Microhoop.find_by_id(microhoop_id) or (microhoop_not_found(microhoop_id) and return)
 
 	  response = {
-	  	is_meeting: microhoop.is_meeting,
-	  	content: microhoop.content,
-	  	location: microhoop.location,
-	  	date: microhoop.created_at,
-	  	user_name: microhoop.user.name,
-	  	microhoop_id: microhoop.id,
-	  	votes: microhoop.votes,
-	  	answers: microhoop.answers.map do |answer| 
-	  		answer.attributes.except('updated_at', 'user_id', 'created_at')
-	  	end
+	  	is_meeting: 		microhoop.is_meeting,
+	  	content: 				microhoop.content,
+	  	location: 			microhoop.location,
+	  	date: 					microhoop.created_at,
+	  	user_name: 			microhoop.user.name,
+	  	microhoop_id: 	microhoop.id,
+	  	votes: 					microhoop.votes,
+	  	answers: 				filter_attributes(microhoop.answers, 'updated_at', 'user_id', 'created_at')
 	  }
 
   	render json: response
@@ -65,8 +63,6 @@ class Api::MicrohoopsController < ApplicationController
     microhoop_id = params['microhoop_id']
     microhoop = Microhoop.find_by_id(microhoop_id)
 
-    ap microhoop
-
     if microhoop
       microhoop.user.add_points 10
       microhoop.vote_up
@@ -80,5 +76,21 @@ class Api::MicrohoopsController < ApplicationController
   private
   def microhoop_not_found id
     render :status => 401, :json => { :success => false, :errors => ["Microhoop does not exists for id #{id}."]}
+  end
+
+  # Internal: Filters an Array of ActiveRecord objects, removing unwanted attributes
+  #
+  # array    - An Array of ActiveRecord objects, or relations.
+  # except - Multiple arguments as String representing the unwanted attributes
+  #
+  # Example:
+  #
+  #   filter_attributes(tags, 'created_at', 'updated_at')
+  #
+  # Return an Array of filtered Hashes.
+  def filter_attributes array, *except
+    array.map do |item|
+      item.attributes.except(*except)
+    end
   end
 end

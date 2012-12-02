@@ -3,6 +3,7 @@ TheHoop::Application.routes.draw do
     match '/users/login'                    => 'users#login'
     match '/users/update'                   => 'users#update'
     match '/users/feed/:fb_uid'             => 'users#feed'
+    match '/users/profile/:fb_uid'         => 'users#profile'
     match '/microhoop/create'               => 'microhoops#create'
     match '/microhoop/get/:microhoop_id'    => 'microhoops#get'
     match '/microhoop/join'                 => 'microhoops#join'
