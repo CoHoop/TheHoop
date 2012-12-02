@@ -11,6 +11,8 @@
 #  updated_at   :datetime        not null
 #
 class Answer < ActiveRecord::Base
+  include Voteable
+
   attr_accessible :content, :votes, :user_id
 
   belongs_to :user
@@ -19,9 +21,4 @@ class Answer < ActiveRecord::Base
   validates :content,      presence: true
   validates :microhoop_id, presence: true
   validates :user_id,      presence: true
-
-  def add_vote
-  	self.votes += 1
-  	self.save!
-  end
 end
