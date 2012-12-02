@@ -1,15 +1,15 @@
 TheHoop::Application.routes.draw do
   namespace 'api' do
-    match '/users/login'                    => 'users#login'
-    match '/users/update'                   => 'users#update'
-    match '/users/feed/:fb_uid'             => 'users#feed'
-    match '/users/profile/:fb_uid'         => 'users#profile'
-    match '/microhoop/create'               => 'microhoops#create'
-    match '/microhoop/get/:microhoop_id'    => 'microhoops#get'
-    match '/microhoop/join'                 => 'microhoops#join'
-    match '/microhoop/voteup/:microhoop_id' => 'microhoops#voteup'
-    match '/answers/create'                 => 'answers#create'
-    match '/answers/voteup/:answer_id'      => 'answers#voteup'
+    match '/users/login'                     => 'users#login'
+    match '/users/update'                    => 'users#update'
+    match '/users/feed/:fb_uid'              => 'users#feed'
+    match '/users/profile/:fb_uid'           => 'users#profile'
+    match '/microhoops/create'               => 'microhoops#create'
+    match '/microhoops/get/:microhoop_id'    => 'microhoops#get'
+    match '/microhoops/join'                 => 'microhoops#join'
+    match '/microhoops/voteup/:microhoop_id' => 'microhoops#voteup'
+    match '/answers/create'                  => 'answers#create'
+    match '/answers/voteup/:answer_id'       => 'answers#voteup'
   end
 
   # The priority is based upon order of creation:
