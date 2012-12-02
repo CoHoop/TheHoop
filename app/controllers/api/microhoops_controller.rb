@@ -42,8 +42,7 @@ class Api::MicrohoopsController < ApplicationController
   	}
 
   	microhoop_id = params['microhoop_id']
-  	user_id = params['user_id']
-
+  	
   	microhoop = Microhoop.find_by_id(microhoop_id)
 
   	if microhoop
