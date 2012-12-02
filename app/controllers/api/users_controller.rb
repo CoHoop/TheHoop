@@ -35,7 +35,7 @@ class Api::UsersController < ApplicationController
       university: user.university,
       picture:    "https://graph.facebook.com/#{user.fb_uuid}/picture?type=large",
       tags:       filter_attributes(user.tags, 'created_at', 'updated_at'),
-      questions:  filter_attributes(user.microhoops, 'updated_at', 'user_id'),
+      microhoops: filter_attributes(user.microhoops, 'updated_at', 'user_id'),
       answers:    filter_attributes(user.answers, 'updated_at', 'user_id')
     }
 
@@ -89,6 +89,16 @@ class Api::UsersController < ApplicationController
     end
 
     render json: response
+  end
+
+  def add_tags
+    uuid = params['fb_uid']
+
+    user = User.find_by_fb_uuid(uuid) or (user_not_found(uuid) and return)
+
+
+
+
   end
 
   private
